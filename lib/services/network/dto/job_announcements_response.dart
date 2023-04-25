@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:offertelavoroflutter/services/netword/dto/job_dto.dart';
+import 'package:offertelavoroflutter/services/network/dto/job_dto.dart';
 
 class JobAnnouncementsResponse extends Equatable {
   final Map<String, String>? errors;
