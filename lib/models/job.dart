@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 enum Team {
   inSede,
   ibrido,
@@ -13,4 +15,50 @@ enum Seniority {
   junior,
   mid,
   senior,
+}
+
+class Job extends Equatable {
+  final String name;
+  final String? qualifica;
+  final String nomeAzienda;
+  final Team? team;
+  final Contratto? contratto;
+  final Seniority? seniority;
+  final String? retribuzione;
+  final List<String> descrizioneOfferta;
+  final String comeCandidarsi;
+  final String? localita;
+  final String? urlSitoWeb;
+  final String jobPosted;
+
+  const Job({
+    required this.name,
+    required this.qualifica,
+    required this.nomeAzienda,
+    required this.team,
+    required this.contratto,
+    required this.seniority,
+    required this.retribuzione,
+    required this.descrizioneOfferta,
+    required this.comeCandidarsi,
+    required this.localita,
+    required this.urlSitoWeb,
+    required this.jobPosted,
+  });
+
+  @override
+  List<Object?> get props => [
+        name,
+        qualifica,
+        nomeAzienda,
+        team,
+        contratto,
+        seniority,
+        retribuzione,
+        descrizioneOfferta,
+        comeCandidarsi,
+        localita,
+        urlSitoWeb,
+        jobPosted,
+      ];
 }
