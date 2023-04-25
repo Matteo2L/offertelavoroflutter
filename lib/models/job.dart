@@ -29,7 +29,7 @@ class Job extends Equatable {
   final String comeCandidarsi;
   final String? localita;
   final String? urlSitoWeb;
-  final String jobPosted;
+  final DateTime jobPosted;
 
   const Job({
     required this.name,

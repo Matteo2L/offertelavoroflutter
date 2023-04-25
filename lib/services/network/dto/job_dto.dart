@@ -18,7 +18,7 @@ class JobDTO extends Equatable {
 
 class PropertiesDTO extends Equatable {
   final JobPostedDTO jobPosted;
-  final TeamDTO? team;
+  final TeamDTO team;
   final String? contratto;
   final String? seniority;
   final int? ral;
@@ -102,7 +102,7 @@ class JobPostedDTO extends Equatable {
 }
 
 class TeamDTO extends Equatable {
-  final String jobPosition;
+  final String? jobPosition;
 
   const TeamDTO({required this.jobPosition});
 
