@@ -54,7 +54,7 @@ class PropertiesDTO extends Equatable {
         team: TeamDTO.fromJson(data['Team']),
         contratto: data['Contratto']['select']['name'],
         seniority: data['Seniority']['select']['name'],
-        ral: data['RAL']['select']['name'],
+        ral: data['RAL']['select'],
         name: data['Name']['title']['text']['content'],
         qualifica: data['Qualifica']['rich_text']['text']['content'],
         retribuzione: data['Retribuzione']['rich_text']['text']['content'],
@@ -94,7 +94,7 @@ class JobPostedDTO extends Equatable {
 
   factory JobPostedDTO.fromJson(Map<String, dynamic> data) => JobPostedDTO(
         createdTime:
-            DateFormat('yyyy-MM-ddTHH:mm:ss+00:00').parse(data['created_time']),
+            DateFormat('yyyy-MM-ddTHH:mm:ss.000Z').parse(data['created_time']),
       );
 
   @override
