@@ -5,7 +5,7 @@ import 'package:offertelavoroflutter/services/network/dto/job_dto.dart';
 class JobMapper extends DTOMapper<JobDTO, Job> {
   @override
   Job toModel(JobDTO dto) => Job(
-        name: dto.properties.name,
+        name: dto.properties.name.text,
         qualifica: dto.properties.qualifica,
         nomeAzienda: dto.properties.nomeAzienda,
         team: _mapTeam(dto.properties.team.jobPosition),

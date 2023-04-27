@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 
@@ -22,7 +24,7 @@ class PropertiesDTO extends Equatable {
   final String? contratto;
   final String? seniority;
   final int? ral;
-  final String name;
+  final NameDTO name;
   final String? qualifica;
   final String? retribuzione;
   final DescrizioneOffertaDTO descrizioneOfferta;
@@ -55,7 +57,7 @@ class PropertiesDTO extends Equatable {
         contratto: data['Contratto']['select']['name'],
         seniority: data['Seniority']['select']['name'],
         ral: data['RAL']['select'],
-        name: data['Name']['title']['text']['content'],
+        name: NameDTO.fromJson(data['Name']),
         qualifica: data['Qualifica']['rich_text']['text']['content'],
         retribuzione: data['Retribuzione']['rich_text']['text']['content'],
         descrizioneOfferta:
@@ -121,6 +123,24 @@ class DescrizioneOffertaDTO extends Equatable {
   factory DescrizioneOffertaDTO.fromJson(Map<String, dynamic> data) =>
       DescrizioneOffertaDTO(
           text: (data['rich_text']).map(data['text']['content'] as List));
+
+  @override
+  List<Object?> get props => [text];
+}
+
+class NameDTO extends Equatable {
+  final String text;
+
+  const NameDTO({required this.text});
+
+  factory NameDTO.fromJson(Map<String, dynamic> data) {
+    List<dynamic> dinamo = data['title'];
+    String testo = dinamo[0]['plain_text'];
+
+    return NameDTO(text: testo);
+  }
+
+  // return NameDTO(text: list.first);
 
   @override
   List<Object?> get props => [text];
