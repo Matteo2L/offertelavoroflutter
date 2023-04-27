@@ -22,7 +22,9 @@ class JobAnnouncementsResponse extends Equatable {
 
   factory JobAnnouncementsResponse.fromJson(Map<String, dynamic> data) =>
       JobAnnouncementsResponse(
-        errors: data.containsKey('errors') ? data['errors'] : null,
+        errors: data.containsKey('errors') && data['errors'] is Map
+            ? data['errors']
+            : null,
         object: data['object'],
         results: (data['results'] as List)
             .map((item) => JobDTO.fromJson(item as Map<String, dynamic>))
