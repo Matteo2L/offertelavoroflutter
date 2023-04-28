@@ -8,7 +8,7 @@ class JobAnnouncementsResponse extends Equatable {
   final String? nextCursor;
   final bool hasMore;
   final String type;
-  final String page;
+  final String? page;
 
   const JobAnnouncementsResponse({
     required this.errors,
@@ -32,7 +32,7 @@ class JobAnnouncementsResponse extends Equatable {
         nextCursor: data['next_cursor'],
         hasMore: data['has_more'],
         type: data['type'],
-        page: data['page'],
+        page: PageDTO.fromJson(data['page']).text,
       );
 
   @override
@@ -45,4 +45,20 @@ class JobAnnouncementsResponse extends Equatable {
         type,
         page,
       ];
+}
+
+class PageDTO extends Equatable {
+  final String? text;
+
+  const PageDTO({required this.text});
+
+  factory PageDTO.fromJson(Map<String, dynamic> data) {
+    return PageDTO(text: null);
+    if (data == null) {}
+    String? lista = data as String;
+    return PageDTO(text: lista);
+  }
+
+  @override
+  List<Object?> get props => [text];
 }

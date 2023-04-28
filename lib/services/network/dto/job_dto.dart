@@ -20,18 +20,18 @@ class JobDTO extends Equatable {
 
 class PropertiesDTO extends Equatable {
   final JobPostedDTO jobPosted;
-  final TeamDTO team;
-  final String? contratto;
-  final String? seniority;
+  final SelectDTO team;
+  final SelectDTO contratto;
+  final SelectDTO seniority;
   final int? ral;
   final NameDTO name;
-  final String? qualifica;
+  final RichTextDTO qualifica;
   final RetribuzioneDTO retribuzione;
   final DescrizioneOffertaDTO descrizioneOfferta;
   final String comeCandidarsi;
-  final String? localita;
+  final RichTextDTO localita;
   final String nomeAzienda;
-  final String? statoPubblicazione;
+  final RichTextDTO statoPubblicazione;
   final String? urlSitoWeb;
 
   const PropertiesDTO({
@@ -53,21 +53,21 @@ class PropertiesDTO extends Equatable {
 
   factory PropertiesDTO.fromJson(Map<String, dynamic> data) => PropertiesDTO(
         jobPosted: JobPostedDTO.fromJson(data['Job Posted']),
-        team: TeamDTO.fromJson(data['Team']),
-        contratto: data['Contratto']['select']['name'],
-        seniority: data['Seniority']['select']['name'],
+        team: SelectDTO.fromJson(data['Team']),
+        contratto: SelectDTO.fromJson(data['Contratto']),
+        seniority: SelectDTO.fromJson(data['Seniority']),
         ral: data['RAL']['select'],
         name: NameDTO.fromJson(data['Name']),
-        qualifica: data['Qualifica']['rich_text'][0]['text']['content'],
+        qualifica: RichTextDTO.fromJson(data['Qualifica']),
         retribuzione: RetribuzioneDTO.fromJson(data['Retribuzione']),
         descrizioneOfferta:
             DescrizioneOffertaDTO.fromJson(data['Descrizione offerta']),
         comeCandidarsi: data['Come candidarsi']['rich_text'][0]['text']
             ['content'],
-        localita: data['Località']['rich_text'][0]['text']['content'],
+        localita: RichTextDTO.fromJson(data['Località']),
         nomeAzienda: data['Nome azienda']['rich_text'][0]['text']['content'],
-        statoPubblicazione: data['Stato di pubblicazione']['rich_text'][0]
-            ['text']['content'],
+        statoPubblicazione:
+            RichTextDTO.fromJson(data['Stato di pubblicazione']),
         urlSitoWeb: data['URL sito web']['url'],
       );
 
@@ -104,16 +104,18 @@ class JobPostedDTO extends Equatable {
   List<Object?> get props => [createdTime];
 }
 
-class TeamDTO extends Equatable {
-  final String? jobPosition;
+class SelectDTO extends Equatable {
+  final String? select;
 
-  const TeamDTO({required this.jobPosition});
+  const SelectDTO({required this.select});
 
-  factory TeamDTO.fromJson(Map<String, dynamic> data) =>
-      TeamDTO(jobPosition: data['select']['name']);
+  factory SelectDTO.fromJson(Map<String, dynamic> data) {
+    return SelectDTO(
+        select: data['select'] == null ? null : data['select']['name']);
+  }
 
   @override
-  List<Object?> get props => [jobPosition];
+  List<Object?> get props => [select];
 }
 
 class DescrizioneOffertaDTO extends Equatable {
@@ -121,9 +123,13 @@ class DescrizioneOffertaDTO extends Equatable {
 
   const DescrizioneOffertaDTO({required this.text});
 
-  factory DescrizioneOffertaDTO.fromJson(Map<String, dynamic> data) =>
-      DescrizioneOffertaDTO(
-          text: (data['rich_text']).map(data['text']['content'] as List));
+  factory DescrizioneOffertaDTO.fromJson(Map<String, dynamic> data) {
+    List<dynamic> dinamo = (data['rich_text']);
+
+    List<String> lista =
+        dinamo.map((e) => (e['text']['content']).toString()).toList();
+    return DescrizioneOffertaDTO(text: lista);
+  }
 
   @override
   List<Object?> get props => [text];
@@ -160,6 +166,27 @@ class RetribuzioneDTO extends Equatable {
     }
 
     return RetribuzioneDTO(text: testo);
+  }
+
+  @override
+  List<Object?> get props => [text];
+}
+
+class RichTextDTO extends Equatable {
+  final String? text;
+
+  const RichTextDTO({required this.text});
+
+  factory RichTextDTO.fromJson(Map<String, dynamic> data) {
+    String? testo;
+    List<dynamic> dinamo = data['rich_text'];
+    if (dinamo.isNotEmpty) {
+      testo = dinamo[0]['text']['content'];
+    } else {
+      testo = null;
+    }
+
+    return RichTextDTO(text: testo);
   }
 
   @override

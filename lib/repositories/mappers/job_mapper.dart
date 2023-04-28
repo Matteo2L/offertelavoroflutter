@@ -6,15 +6,15 @@ class JobMapper extends DTOMapper<JobDTO, Job> {
   @override
   Job toModel(JobDTO dto) => Job(
         name: dto.properties.name.text,
-        qualifica: dto.properties.qualifica,
+        qualifica: dto.properties.qualifica.text,
         nomeAzienda: dto.properties.nomeAzienda,
-        team: _mapTeam(dto.properties.team.jobPosition),
-        contratto: _mapContratto(dto.properties.contratto),
-        seniority: _mapSeniority(dto.properties.seniority),
+        team: _mapTeam(dto.properties.team.select),
+        contratto: _mapContratto(dto.properties.contratto.select),
+        seniority: _mapSeniority(dto.properties.seniority.select),
         retribuzione: dto.properties.retribuzione.text,
         descrizioneOfferta: dto.properties.descrizioneOfferta.text,
         comeCandidarsi: dto.properties.comeCandidarsi,
-        localita: dto.properties.localita,
+        localita: dto.properties.localita.text,
         urlSitoWeb: dto.properties.urlSitoWeb,
         jobPosted: dto.properties.jobPosted.createdTime,
       );
