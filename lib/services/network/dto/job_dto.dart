@@ -26,7 +26,7 @@ class PropertiesDTO extends Equatable {
   final int? ral;
   final NameDTO name;
   final String? qualifica;
-  final String? retribuzione;
+  final RetribuzioneDTO retribuzione;
   final DescrizioneOffertaDTO descrizioneOfferta;
   final String comeCandidarsi;
   final String? localita;
@@ -58,15 +58,16 @@ class PropertiesDTO extends Equatable {
         seniority: data['Seniority']['select']['name'],
         ral: data['RAL']['select'],
         name: NameDTO.fromJson(data['Name']),
-        qualifica: data['Qualifica']['rich_text']['text']['content'],
-        retribuzione: data['Retribuzione']['rich_text']['text']['content'],
+        qualifica: data['Qualifica']['rich_text'][0]['text']['content'],
+        retribuzione: RetribuzioneDTO.fromJson(data['Retribuzione']),
         descrizioneOfferta:
             DescrizioneOffertaDTO.fromJson(data['Descrizione offerta']),
-        comeCandidarsi: data['Come candidarsi']['rich_text']['text']['content'],
-        localita: data['Località']['rich_text']['text']['content'],
-        nomeAzienda: data['Nome azienda']['rich_text']['text']['content'],
-        statoPubblicazione: data['Stato di pubblicazione']['rich_text']['text']
+        comeCandidarsi: data['Come candidarsi']['rich_text'][0]['text']
             ['content'],
+        localita: data['Località']['rich_text'][0]['text']['content'],
+        nomeAzienda: data['Nome azienda']['rich_text'][0]['text']['content'],
+        statoPubblicazione: data['Stato di pubblicazione']['rich_text'][0]
+            ['text']['content'],
         urlSitoWeb: data['URL sito web']['url'],
       );
 
@@ -140,7 +141,26 @@ class NameDTO extends Equatable {
     return NameDTO(text: testo);
   }
 
-  // return NameDTO(text: list.first);
+  @override
+  List<Object?> get props => [text];
+}
+
+class RetribuzioneDTO extends Equatable {
+  final String? text;
+
+  const RetribuzioneDTO({required this.text});
+
+  factory RetribuzioneDTO.fromJson(Map<String, dynamic> data) {
+    String? testo;
+    List<dynamic> dinamo = data['rich_text'];
+    if (dinamo.isNotEmpty) {
+      testo = dinamo[0]['text']['content'];
+    } else {
+      testo = null;
+    }
+
+    return RetribuzioneDTO(text: testo);
+  }
 
   @override
   List<Object?> get props => [text];

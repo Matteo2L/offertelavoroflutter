@@ -11,7 +11,7 @@ class JobMapper extends DTOMapper<JobDTO, Job> {
         team: _mapTeam(dto.properties.team.jobPosition),
         contratto: _mapContratto(dto.properties.contratto),
         seniority: _mapSeniority(dto.properties.seniority),
-        retribuzione: dto.properties.retribuzione,
+        retribuzione: dto.properties.retribuzione.text,
         descrizioneOfferta: dto.properties.descrizioneOfferta.text,
         comeCandidarsi: dto.properties.comeCandidarsi,
         localita: dto.properties.localita,
