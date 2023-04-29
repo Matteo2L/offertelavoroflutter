@@ -12,7 +12,7 @@ class JobWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(6.0),
           child: Container(
-            padding: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(4)),
