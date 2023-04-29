@@ -60,7 +60,8 @@ Widget _listWidget(
   BuildContext context, {
   List<Job> jobs = const [],
 }) =>
-    ListView.builder(
+    ListView.separated(
+      separatorBuilder: (context, index) => const Divider(color: Colors.black),
       padding: const EdgeInsets.symmetric(
         vertical: 8.0,
         horizontal: 4.0,

@@ -37,7 +37,6 @@ class App extends StatelessWidget {
               title: 'Jobs',
               theme: ThemeData(
                 primarySwatch: MaterialColor(0xFF027DFD, color),
-                scaffoldBackgroundColor: Colors.grey.shade300,
                 appBarTheme: const AppBarTheme(
                   titleTextStyle: TextStyle(
                     color: Colors.white,
@@ -46,20 +45,6 @@ class App extends StatelessWidget {
                   ),
                   backgroundColor: Colors.indigo,
                   elevation: 5,
-                ),
-                tabBarTheme: const TabBarTheme(
-                  unselectedLabelColor: Color(0x88FFFFFF),
-                  labelColor: Colors.white,
-                  indicator: UnderlineTabIndicator(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                  labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                cardTheme: CardTheme(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  elevation: 1,
                 ),
               ),
               home: const MainPage(),
