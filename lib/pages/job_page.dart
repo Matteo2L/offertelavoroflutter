@@ -1,5 +1,7 @@
+import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:offertelavoroflutter/models/job.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class JobPage extends StatelessWidget {
   final Job job;
@@ -70,7 +72,7 @@ class JobPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(job.descrizioneOfferta.toString()),
+                  child: job.descrizioneOfferta,
                 ),
               ],
             ),
@@ -81,7 +83,11 @@ class JobPage extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 InkWell(
-                  onTap: () => Uri.parse(job.comeCandidarsi),
+                  onTap: () {
+                    Uri.tryParse(job.comeCandidarsi)!.hasAbsolutePath
+                        ? launchUrl(Uri.parse(job.comeCandidarsi))
+                        : null;
+                  },
                   child: Text(
                     job.comeCandidarsi,
                     style: const TextStyle(

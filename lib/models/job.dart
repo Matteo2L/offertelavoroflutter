@@ -1,3 +1,4 @@
+import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:equatable/equatable.dart';
 
 enum Team {
@@ -25,7 +26,7 @@ class Job extends Equatable {
   final Contratto? contratto;
   final Seniority? seniority;
   final String? retribuzione;
-  final List<String> descrizioneOfferta;
+  final EasyRichText descrizioneOfferta;
   final String comeCandidarsi;
   final String? localita;
   final String? urlSitoWeb;

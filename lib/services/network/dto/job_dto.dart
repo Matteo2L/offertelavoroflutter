@@ -1,6 +1,6 @@
-import 'dart:convert';
-
+import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class JobDTO extends Equatable {
@@ -119,16 +119,46 @@ class SelectDTO extends Equatable {
 }
 
 class DescrizioneOffertaDTO extends Equatable {
-  final List<String> text;
+  final EasyRichText text;
 
   const DescrizioneOffertaDTO({required this.text});
 
   factory DescrizioneOffertaDTO.fromJson(Map<String, dynamic> data) {
     List<dynamic> dinamo = (data['rich_text']);
 
-    List<String> lista =
+    List<String> listaTestoDescrizione =
         dinamo.map((e) => (e['text']['content']).toString()).toList();
-    return DescrizioneOffertaDTO(text: lista);
+
+    List<dynamic>? annotations = dinamo.map((e) => e['annotations']).toList();
+    List<bool> bold = annotations.map((e) => e['bold'] as bool).toList();
+    List<bool> italic = annotations.map((e) => e['italic'] as bool).toList();
+    List<bool> strikethrough =
+        annotations.map((e) => e['strikethrough'] as bool).toList();
+    List<bool> underline =
+        annotations.map((e) => e['underline'] as bool).toList();
+    List<bool> code = annotations.map((e) => e['code'] as bool).toList();
+    List<String> color = annotations.map((e) => e['color'] as String).toList();
+    List<EasyRichTextPattern> patternTestoRicco = List.generate(
+      dinamo.length,
+      (index) => EasyRichTextPattern(
+        targetString: listaTestoDescrizione[index],
+        style: TextStyle(
+          fontWeight: bold[index] == true ? FontWeight.bold : FontWeight.normal,
+          fontStyle:
+              italic[index] == true ? FontStyle.italic : FontStyle.normal,
+          decoration: underline[index] == true
+              ? TextDecoration.underline
+              : TextDecoration.none,
+        ),
+      ),
+    );
+
+    EasyRichText testoRicco = EasyRichText(
+      listaTestoDescrizione.toString(),
+      patternList: patternTestoRicco,
+    );
+
+    return DescrizioneOffertaDTO(text: testoRicco);
   }
 
   @override
